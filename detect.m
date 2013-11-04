@@ -1,4 +1,4 @@
-function result = detect (fname, threshold = 0.5)
+function [result, percentage] = detect (fname, threshold = 0.5)
 % detect (image file name, threshold)
     pkg load image;
 
@@ -12,7 +12,8 @@ function result = detect (fname, threshold = 0.5)
     % TODO better approach to map a function to the matrix
     check = arrayfun(@(x) x <= 120 && x >= 80, cb) .* \
             arrayfun(@(x) x <= 173 && x >= 133, cr);
-    if (sum (sum (check)) / (x * y) >= threshold)
+    percentage = (sum (sum (check))) / (x * y);
+    if (percentage >= threshold)
         result = 1;
     else
         result = 0;
